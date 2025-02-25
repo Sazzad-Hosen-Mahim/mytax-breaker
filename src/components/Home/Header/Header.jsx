@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ImageSection from "./ImageSection";
 import PropTypes from "prop-types";
 
@@ -25,9 +26,11 @@ const Header = ({
           <p className="text-white text-lg mt-8 lg:mt-0 px-10 lg:px-0">
             {para}
           </p>
-          <button className="bg-light-green px-12 py-4 font-bold text-primary-button-text mt-7 rounded-md cursor-pointer hover:bg-light-green/50 hover:shadow-2xl hover:text-white">
-            {buttonTitle}
-          </button>
+          <Link to="/book-appointment">
+            <button className="bg-light-green px-12 py-4 font-bold text-primary-button-text mt-7 rounded-md cursor-pointer hover:bg-light-green/50 hover:shadow-2xl hover:text-white">
+              {buttonTitle}
+            </button>
+          </Link>
         </div>
       </div>
 
