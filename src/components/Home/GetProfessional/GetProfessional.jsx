@@ -12,23 +12,25 @@ const GetProfessional = () => {
             </button>
             <h1 className="font-raleway font-semibold text-2xl sm:text-4xl leading-[1.2] mt-4">
               Get Professional Instantly <br className="hidden sm:block" /> In
-              Just A Few Step
+              Just A Few Steps
             </h1>
           </div>
 
           {/* Right Side - Timeline Section */}
-          <div className="flex flex-col items-start text-white md:ml-6 lg:ml-72">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-              natus similique eum dolorum aspernatur at molestiae, architecto
-              eius laborum, delectus, rem quae molestias veniam error alias
-              corporis culpa a. Excepturi!
-            </p>
-            <div className="mt-6">
-              <button className="w-[170px] h-[60px] bg-[#A7EB94] text-primary-button font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-light-green/50 hover:text-black">
+          <div className="flex flex-col items-start text-white -ml-1 sm:ml-26 md:ml-16 lg:ml-32 xl:ml-72">
+            <div className="whitespace-pre text-sm sm:text-base md:text-lg">
+              Unlock access to top-tier professionals with ease.
+              {"\n"}
+              from search to onboard is streamlined and swift. and
+              {"\n"}
+              steps, elevate your team with the industry's best.
+            </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-4">
+              <button className="w-full sm:w-[170px] h-[50px] sm:h-[60px] bg-[#A7EB94] text-green-900 font-semibold px-4 py-2 rounded-lg">
                 Get Quotes
               </button>
-              <button className="ml-1 lg:ml-4 lg:w-[252px] h-[60px] text-white font-semibold px-4 py-2 rounded-[5px] border-[1px] border-solid border-light-green absolute hover:bg-light-green hover:text-black">
+              <button className="w-full sm:w-[252px] h-[50px] sm:h-[60px] text-white font-semibold px-4 py-2 rounded-[5px] border border-green-400">
                 Book An Appointment
               </button>
             </div>
@@ -36,8 +38,8 @@ const GetProfessional = () => {
         </div>
 
         {/* Image and Timeline Section */}
-        <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-center mt-12 lg:gap-4">
-          <div className="">
+        <div className="flex justify-between items-center mt-12 gap-4">
+          <div className="hidden sm:block">
             <img
               className="w-full rounded-[25px] object-cover"
               src="https://www.ziprecruiter.com/svc/fotomat/public-ziprecruiter/uploads/career_advice/interview_questions/cibc_financial_services_representative.webp"
