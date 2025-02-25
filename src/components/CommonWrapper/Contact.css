@@ -1,0 +1,27 @@
+.header-container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .header-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .header-para {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .header-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

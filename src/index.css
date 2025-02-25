@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "@fontsource/raleway";
+@import "@fontsource/karla";
+
+Override Tailwind Preflight h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: revert; /* Restores browser default margin */
+}
+
+@theme {
+  --color-light-green: #a7eb94;
+  --color-footer-background: #031c17;
+  --color-primary-button: #004d3f;
+  --color-primary-button-text: #004d3f;
+}
+
+:root {
+  --color-green-background: radial-gradient(
+    55.97% 157.65% at 50.89% 48.56%,
+    #004d3f 0%,
+    #004d3f 53.5%,
+    #26714b 100%
+  );
+}
+
+/* Apply the fonts globally */
+body {
+  font-family: "Karla", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
+p {
+  font-family: "Karla", sans-serif;
+}
+
+.bg-green-background {
+  background: var(--color-green-background);
+}

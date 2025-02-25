@@ -1,0 +1,7 @@
+.element {
+    box-shadow: 0 4px 6px rgba(10, 48, 61, 0.1),    /* Bottom */
+                0 -4px 6px rgba(10, 48, 61, 0.1),   /* Top */
+                4px 0 6px rgba(10, 48, 61, 0.1),    /* Right */
+                -4px 0 6px rgba(10, 48, 61, 0.1);   /* Left */
+  }
+  
