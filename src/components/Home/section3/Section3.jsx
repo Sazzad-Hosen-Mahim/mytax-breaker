@@ -4,8 +4,16 @@ import Card2 from "./components/Card2";
 function Section3() {
   return (
     <CommonWrapper>
-      <div className="flex  justify-center gap-6  py-48">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="flex justify-center py-48 gap-6 sm:py-16 sm:px-2">
+        <div
+          className="
+            grid grid-cols-1 md:grid-cols-3 gap-8
+            sm:grid-cols-1
+            sm:gap-4
+            w-full
+            sm:overflow-x-auto
+          "
+        >
           <Card2
             title={"Broad Range ofServices Available."}
             content={

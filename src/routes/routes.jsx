@@ -7,6 +7,8 @@ import BookAnAppointment from "../Pages/BookAnAppointment";
 import NotFound from "../Pages/NotFound";
 import Team from "../Pages/Team";
 import DashBoardLayout from "../dashboard/layout/DashBoardLayout";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
 
 const routes = createBrowserRouter([
   {
@@ -33,16 +35,24 @@ const routes = createBrowserRouter([
         path: "team",
         element: <Team />,
       },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
     ],
   },
   {
-    path:"/admin/dashboard",
-    element:<DashBoardLayout/>
-  }
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/admin/dashboard",
+    element: <DashBoardLayout />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
 
 export default routes;
