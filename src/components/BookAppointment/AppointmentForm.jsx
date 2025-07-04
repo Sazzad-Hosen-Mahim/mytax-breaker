@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import InputField from "./InputField";
 import { useForm } from "react-hook-form";
 import SelectField from "./SelectField";
@@ -123,7 +123,6 @@ const AppointmentForm = () => {
             rules={{
               required: "Phone is required",
               pattern: {
-                value: /^\+?[1-9]\d{1,14}$/, // Regex for international phone numbers
                 message: "Invalid phone number format",
               },
             }}
