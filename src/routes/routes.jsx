@@ -9,6 +9,8 @@ import Team from "../Pages/Team";
 import DashBoardLayout from "../dashboard/layout/DashBoardLayout";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import DashboardHome from "../Pages/Admin/DashboardHome";
+import DashboardSettings from "../Pages/Admin/DashboardSettings";
 
 const routes = createBrowserRouter([
   {
@@ -48,6 +50,16 @@ const routes = createBrowserRouter([
   {
     path: "/admin/dashboard",
     element: <DashBoardLayout />,
+    children: [
+      {
+        path: "",
+        element: <DashboardHome />,
+      },
+      {
+        path: "settings",
+        element: <DashboardSettings />,
+      },
+    ],
   },
   {
     path: "*",

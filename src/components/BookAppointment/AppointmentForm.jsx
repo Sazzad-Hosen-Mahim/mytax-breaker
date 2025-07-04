@@ -50,7 +50,7 @@ const AppointmentForm = () => {
 
     try {
       const response = await axios.post(
-        "https://appoinment-server-h773.onrender.com/api/appointments",
+        "http://localhost:3000/booking",
         payload
       );
       toast.dismiss(loadId);

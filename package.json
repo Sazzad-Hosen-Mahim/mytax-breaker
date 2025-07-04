@@ -17,6 +17,7 @@
     "@heroui/card": "^2.2.13",
     "@tailwindcss/vite": "^4.0.8",
     "axios": "^1.7.9",
+    "cookies-js": "^1.2.3",
     "framer-motion": "^12.4.7",
     "lightningcss": "^1.29.1",
     "link-react": "^3.0.0",

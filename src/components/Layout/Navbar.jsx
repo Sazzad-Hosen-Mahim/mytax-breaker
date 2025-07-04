@@ -9,6 +9,8 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
 
+  const isLoggedIn = false;
+
   const handleLinkClick = (link) => {
     setActiveLink(link);
   };
@@ -109,9 +111,25 @@ const Navbar = () => {
           </div>
 
           {/* Get Started Button */}
-          <div className="flex items-center justify-center gap-2 bg-[#A7EB94] text-[#004D3F] p-3 rounded-xl">
+          {isLoggedIn ? (
+            <Link
+              to="/admin/dashboard"
+              className="text-lg cursor-pointer font-bold"
+            >
+              <div className="flex items-center justify-center gap-2 bg-[#A7EB94] text-[#004D3F] p-3 rounded-xl">
+                Dashboard
+              </div>
+            </Link>
+          ) : (
+            <Link to="/login" className="text-lg cursor-pointer font-bold">
+              <div className="flex items-center justify-center gap-2 bg-[#A7EB94] text-[#004D3F] p-3 rounded-xl">
+                Get Started
+              </div>
+            </Link>
+          )}
+          {/* <div className="flex items-center justify-center gap-2 bg-[#A7EB94] text-[#004D3F] p-3 rounded-xl">
             <button className="text-lg cursor-pointer">Get Started</button>
-          </div>
+          </div> */}
         </div>
 
         {/* Mobile Layout */}
