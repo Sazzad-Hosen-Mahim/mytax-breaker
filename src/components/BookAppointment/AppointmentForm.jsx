@@ -5,7 +5,7 @@ import SelectField from "./SelectField";
 import TimePicker from "./TimePicker";
 import TextAreaField from "./TextAreaField";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const AppointmentForm = () => {
   const {
@@ -54,7 +54,7 @@ const AppointmentForm = () => {
         payload
       );
       toast.dismiss(loadId);
-      toast.success("Created Successfully", { position: "top-right" });
+      toast.success("Booking confirmed!!", { position: "top-right" });
       reset();
     } catch (error) {
       toast.dismiss(loadId);
@@ -181,7 +181,6 @@ const AppointmentForm = () => {
           </div>
         </form>
       </div>
-      <Toaster />
     </div>
   );
 };

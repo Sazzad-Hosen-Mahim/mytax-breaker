@@ -1,5 +1,15 @@
 import { useEffect, useState } from "react";
-import { FaTrash, FaEye, FaSearch, FaFilter, FaSort } from "react-icons/fa";
+import {
+  FaTrash,
+  FaEye,
+  FaSearch,
+  FaFilter,
+  FaSort,
+  FaAngleLeft,
+  FaAngleRight,
+  FaAngleDoubleLeft,
+  FaAngleDoubleRight,
+} from "react-icons/fa";
 
 interface Booking {
   id: number;
@@ -12,6 +22,13 @@ interface Booking {
   time: string;
   message: string;
   createdAt: string;
+}
+
+interface PaginatedResponse {
+  data: Booking[];
+  total: number;
+  page: number;
+  lastPage: number;
 }
 
 const DashboardHome = () => {
@@ -28,36 +45,53 @@ const DashboardHome = () => {
   const [idSort, setIdSort] = useState<"asc" | "desc" | null>(null);
   const [selectedService, setSelectedService] = useState<string>("all");
 
-  // Fetch data from the backend
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [totalItems, setTotalItems] = useState(0);
+  const [lastPage, setLastPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Fetch data from the backend with pagination
   useEffect(() => {
     const fetchBookings = async () => {
+      setIsLoading(true);
       const token = localStorage.getItem("access_token");
       try {
-        const res = await fetch("http://localhost:3000/booking", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await fetch(
+          `http://localhost:3000/booking?page=${currentPage}&limit=${itemsPerPage}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!res.ok) {
           const errorData = await res.json();
           console.error("Error response from backend:", errorData);
           setBookings([]);
+          setTotalItems(0);
+          setIsLoading(false);
           return;
         }
-        const data = await res.json();
-        setBookings(data);
-        setFilteredBookings(data);
+        const data: PaginatedResponse = await res.json();
+        setBookings(data.data);
+        setFilteredBookings(data.data);
+        setTotalItems(data.total);
+        setLastPage(data.lastPage);
       } catch (error) {
         console.error("Failed to fetch bookings", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchBookings();
-  }, []);
+  }, [currentPage, itemsPerPage]);
 
-  // Apply filters and sorting whenever dependencies change
+  // Apply filters and sorting to the current page's data
   useEffect(() => {
     let result = [...bookings];
 
@@ -101,6 +135,20 @@ const DashboardHome = () => {
     ...new Set(bookings.map((booking) => booking.service)),
   ];
 
+  // Pagination functions
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= lastPage) {
+      setCurrentPage(page);
+    }
+  };
+
+  const handleItemsPerPageChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1); // Reset to first page when changing items per page
+  };
+
   // Delete functions
   const handleDeleteClick = (id: number) => {
     setSelectedId(id);
@@ -112,12 +160,47 @@ const DashboardHome = () => {
     setShowViewModal(true);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (selectedId !== null) {
-      const updatedBookings = bookings.filter((b) => b.id !== selectedId);
-      setBookings(updatedBookings);
-      setShowDeleteModal(false);
-      setSelectedId(null);
+      try {
+        const token = localStorage.getItem("access_token");
+        const response = await fetch(
+          `http://localhost:3000/booking/${selectedId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to delete booking");
+        }
+
+        // Refresh the current page after deletion
+        const res = await fetch(
+          `http://localhost:3000/booking?page=${currentPage}&limit=${itemsPerPage}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (res.ok) {
+          const data: PaginatedResponse = await res.json();
+          setBookings(data.data);
+          setTotalItems(data.total);
+          setLastPage(data.lastPage);
+        }
+      } catch (error) {
+        console.error("Error deleting booking:", error);
+      } finally {
+        setShowDeleteModal(false);
+        setSelectedId(null);
+      }
     }
   };
 
@@ -144,6 +227,38 @@ const DashboardHome = () => {
       return "asc";
     });
     setNameSort(null);
+  };
+
+  // Generate page numbers for pagination
+  const getPageNumbers = (): number[] => {
+    const pages: number[] = [];
+    const maxVisiblePages = 5;
+
+    if (lastPage <= maxVisiblePages) {
+      for (let i = 1; i <= lastPage; i++) {
+        pages.push(i);
+      }
+    } else {
+      const half = Math.floor(maxVisiblePages / 2);
+      let start = currentPage - half;
+      let end = currentPage + half;
+
+      if (start < 1) {
+        start = 1;
+        end = maxVisiblePages;
+      }
+
+      if (end > lastPage) {
+        end = lastPage;
+        start = lastPage - maxVisiblePages + 1;
+      }
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
   };
 
   return (
@@ -186,136 +301,216 @@ const DashboardHome = () => {
         </div>
       </div>
 
-      <div className="overflow-x-auto bg-white rounded-lg shadow">
-        <div className="min-w-full inline-block align-middle">
-          <div className="overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-blue-900">
-                <tr>
-                  <th
-                    className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
-                    onClick={toggleIdSort}
-                  >
-                    <div className="flex items-center">
-                      ID
-                      <FaSort
-                        className={`ml-1 ${
-                          idSort ? "text-blue-200" : "text-gray-300"
-                        }`}
-                      />
-                      {idSort === "asc" && (
-                        <span className="ml-1 text-xs">↑</span>
-                      )}
-                      {idSort === "desc" && (
-                        <span className="ml-1 text-xs">↓</span>
-                      )}
-                    </div>
-                  </th>
-                  <th
-                    className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
-                    onClick={toggleNameSort}
-                  >
-                    <div className="flex items-center">
-                      Name
-                      <FaSort
-                        className={`ml-1 ${
-                          nameSort ? "text-blue-200" : "text-gray-300"
-                        }`}
-                      />
-                      {nameSort === "asc" && (
-                        <span className="ml-1 text-xs">↑</span>
-                      )}
-                      {nameSort === "desc" && (
-                        <span className="ml-1 text-xs">↓</span>
-                      )}
-                    </div>
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Phone
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Subject
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Service
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {filteredBookings.length > 0 ? (
-                  filteredBookings.map((booking) => (
-                    <tr key={booking.id} className="hover:bg-blue-50">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {booking.id}
-                      </td>
-                      <td className="px-4 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
-                          {booking.fullName}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {booking.email}
-                        </div>
-                      </td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {booking.phoneNumber}
-                      </td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {booking.subject}
-                      </td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {booking.service}
-                      </td>
-                      <td className="px-4 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">
-                          {new Date(booking.date).toLocaleDateString()}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {booking.time}
-                        </div>
-                      </td>
-                      <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex space-x-3">
-                          <button
-                            onClick={() => handleViewClick(booking)}
-                            className="text-blue-600 hover:text-blue-900"
-                            title="View"
-                          >
-                            <FaEye className="h-5 w-5" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteClick(booking.id)}
-                            className="text-red-600 hover:text-red-900"
-                            title="Delete"
-                          >
-                            <FaTrash className="h-5 w-5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={7}
-                      className="px-4 py-6 text-center text-gray-500"
-                    >
-                      No bookings found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+      {/* Items per page selector */}
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-600">Show</span>
+          <select
+            className="border rounded px-2 py-1 text-sm"
+            value={itemsPerPage}
+            onChange={handleItemsPerPageChange}
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+          </select>
+          <span className="text-sm text-gray-600">entries</span>
+        </div>
+        <div className="text-sm text-gray-600">
+          Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+          {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}{" "}
+          entries
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <>
+          <div className="overflow-x-auto bg-white rounded-lg shadow mb-4">
+            <div className="min-w-full inline-block align-middle">
+              <div className="overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-blue-900">
+                    <tr>
+                      <th
+                        className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
+                        onClick={toggleIdSort}
+                      >
+                        <div className="flex items-center">
+                          ID
+                          <FaSort
+                            className={`ml-1 ${
+                              idSort ? "text-blue-200" : "text-gray-300"
+                            }`}
+                          />
+                          {idSort === "asc" && (
+                            <span className="ml-1 text-xs">↑</span>
+                          )}
+                          {idSort === "desc" && (
+                            <span className="ml-1 text-xs">↓</span>
+                          )}
+                        </div>
+                      </th>
+                      <th
+                        className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
+                        onClick={toggleNameSort}
+                      >
+                        <div className="flex items-center">
+                          Name
+                          <FaSort
+                            className={`ml-1 ${
+                              nameSort ? "text-blue-200" : "text-gray-300"
+                            }`}
+                          />
+                          {nameSort === "asc" && (
+                            <span className="ml-1 text-xs">↑</span>
+                          )}
+                          {nameSort === "desc" && (
+                            <span className="ml-1 text-xs">↓</span>
+                          )}
+                        </div>
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Phone
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Subject
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Service
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Date
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {filteredBookings.length > 0 ? (
+                      filteredBookings.map((booking) => (
+                        <tr key={booking.id} className="hover:bg-blue-50">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {booking.id}
+                          </td>
+                          <td className="px-4 py-4 whitespace-nowrap">
+                            <div className="text-sm font-medium text-gray-900">
+                              {booking.fullName}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {booking.email}
+                            </div>
+                          </td>
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {booking.phoneNumber}
+                          </td>
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {booking.subject}
+                          </td>
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {booking.service}
+                          </td>
+                          <td className="px-4 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">
+                              {new Date(booking.date).toLocaleDateString()}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {booking.time}
+                            </div>
+                          </td>
+                          <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <div className="flex space-x-3">
+                              <button
+                                onClick={() => handleViewClick(booking)}
+                                className="text-blue-600 hover:text-blue-900"
+                                title="View"
+                              >
+                                <FaEye className="h-5 w-5" />
+                              </button>
+                              <button
+                                onClick={() => handleDeleteClick(booking.id)}
+                                className="text-red-600 hover:text-red-900"
+                                title="Delete"
+                              >
+                                <FaTrash className="h-5 w-5" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={7}
+                          className="px-4 py-6 text-center text-gray-500"
+                        >
+                          No bookings found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="flex flex-col sm:flex-row items-center justify-between mt-4 gap-4">
+            <div className="text-sm text-gray-600">
+              Page {currentPage} of {lastPage}
+            </div>
+            <div className="flex gap-1">
+              <button
+                onClick={() => goToPage(1)}
+                disabled={currentPage === 1}
+                className="px-3 py-1 rounded border disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FaAngleDoubleLeft />
+              </button>
+              <button
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-3 py-1 rounded border disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FaAngleLeft />
+              </button>
+
+              {getPageNumbers().map((page) => (
+                <button
+                  key={page}
+                  onClick={() => goToPage(page)}
+                  className={`px-3 py-1 rounded border ${
+                    currentPage === page ? "bg-blue-500 text-white" : ""
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+
+              <button
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === lastPage}
+                className="px-3 py-1 rounded border disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FaAngleRight />
+              </button>
+              <button
+                onClick={() => goToPage(lastPage)}
+                disabled={currentPage === lastPage}
+                className="px-3 py-1 rounded border disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FaAngleDoubleRight />
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
       {showDeleteModal && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
