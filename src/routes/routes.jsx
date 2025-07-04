@@ -11,6 +11,8 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import DashboardHome from "../Pages/Admin/DashboardHome";
 import DashboardSettings from "../Pages/Admin/DashboardSettings";
+import ForgotPassword from "../Pages/ForgotPassword";
+import ResetPassword from "../Pages/ResetPassword";
 
 const routes = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ const routes = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
   {
     path: "/admin/dashboard",

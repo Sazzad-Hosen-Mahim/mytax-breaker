@@ -87,6 +87,15 @@ const Login = () => {
         >
           {isLoading ? "Logging in..." : "Login"}
         </button>
+        <p className="text-primary-button-text">
+          Forgot Password?{" "}
+          <button
+            className="text-blue-400 cursor-pointer font-semibold"
+            onClick={() => navigate("/forgot-password")}
+          >
+            Click here
+          </button>
+        </p>
       </form>
     </div>
   );
