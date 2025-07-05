@@ -1,19 +1,12 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import imgLogo from "../../assets/logo/logo.png";
 
-interface DashboardSidebarProps {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-}
-
-const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
-  isOpen,
-  setIsOpen,
-}) => {
+const DashboardSidebar = ({ isOpen, setIsOpen }) => {
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event) => {
       const sidebar = document.getElementById("sidebar");
-      if (sidebar && !sidebar.contains(event.target as Node)) {
+      if (sidebar && !sidebar.contains(event.target)) {
         setIsOpen(false);
       }
     };
@@ -34,8 +27,10 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         isOpen ? "left-0" : "-left-full lg:left-0"
       }`}
     >
-      <div className="mb-8">
-        <h2 className="text-white text-2xl font-bold">Financy</h2>
+      <div className="mb-16">
+        <Link to={"/"}>
+          <img src={imgLogo} alt="" />
+        </Link>
       </div>
       <nav className="flex flex-col gap-4">
         <NavLink

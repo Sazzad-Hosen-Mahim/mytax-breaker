@@ -35,7 +35,7 @@ const ResetPassword = () => {
           },
           body: JSON.stringify({
             token,
-            password,
+            newPassword: password,
           }),
         }
       );

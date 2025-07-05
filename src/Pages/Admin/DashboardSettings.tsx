@@ -3,12 +3,14 @@ import { useSearchParams } from "react-router-dom";
 
 const DashboardSettings = () => {
   const [searchParams] = useSearchParams();
-  const [token, setToken] = useState(searchParams.get("token") || "");
-  const [newPassword, setNewPassword] = useState("");
+  // const [token, setToken] = useState(searchParams.get("token") || "");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const token = localStorage.getItem("access_token");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,12 +19,12 @@ const DashboardSettings = () => {
     setIsLoading(true);
 
     // Validation
-    if (!newPassword || !confirmPassword) {
+    if (!password || !confirmPassword) {
       setError("All fields are required.");
       setIsLoading(false);
       return;
     }
-    if (newPassword !== confirmPassword) {
+    if (password !== confirmPassword) {
       setError("Passwords do not match.");
       setIsLoading(false);
       return;
@@ -35,15 +37,16 @@ const DashboardSettings = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/auth/reset-password",
+        "http://localhost:3000/auth/change-password",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             token,
-            newPassword,
+            password,
           }),
         }
       );
@@ -55,8 +58,8 @@ const DashboardSettings = () => {
       }
 
       setSuccess("Password has been reset successfully!");
-      setToken("");
-      setNewPassword("");
+      // setToken("");
+      setPassword("");
       setConfirmPassword("");
     } catch (err) {
       setError(
@@ -71,7 +74,7 @@ const DashboardSettings = () => {
     <div className="max-w-md mx-auto lg:mt-36 bg-white p-6 rounded shadow">
       <h2 className="text-xl font-bold mb-4">Reset Password</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {!token && (
+        {/* {!token && (
           <label className="font-medium">
             Reset Token
             <input
@@ -82,14 +85,14 @@ const DashboardSettings = () => {
               required
             />
           </label>
-        )}
+        )} */}
         <label className="font-medium">
           New Password
           <input
             type="password"
             className="mt-1 block w-full border rounded px-3 py-2"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
           />

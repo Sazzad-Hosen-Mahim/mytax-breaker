@@ -9,7 +9,16 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
 
-  const isLoggedIn = false;
+  let isLoggedIn = false;
+
+  const user = localStorage.getItem("user");
+  const token = localStorage.getItem("access_token");
+
+  if (user || token) {
+    isLoggedIn = true;
+  } else {
+    isLoggedIn = false;
+  }
 
   const handleLinkClick = (link) => {
     setActiveLink(link);

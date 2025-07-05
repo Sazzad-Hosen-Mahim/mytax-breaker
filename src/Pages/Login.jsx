@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "cookies-js";
 
 const Login = () => {
   const [email, setEmail] = useState("");

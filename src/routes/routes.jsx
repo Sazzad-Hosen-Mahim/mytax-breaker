@@ -14,6 +14,7 @@ import DashboardSettings from "../Pages/Admin/DashboardSettings";
 import ForgotPassword from "../Pages/ForgotPassword";
 import ResetPassword from "../Pages/ResetPassword";
 import Service from "../Pages/Service";
+import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -63,16 +64,22 @@ const routes = createBrowserRouter([
     element: <ResetPassword />,
   },
   {
-    path: "/admin/dashboard",
-    element: <DashBoardLayout />,
+    path: "/admin",
+    element: <PrivateRoute />,
     children: [
       {
-        path: "",
-        element: <DashboardHome />,
-      },
-      {
-        path: "settings",
-        element: <DashboardSettings />,
+        path: "dashboard",
+        element: <DashBoardLayout />,
+        children: [
+          {
+            index: true,
+            element: <DashboardHome />,
+          },
+          {
+            path: "settings",
+            element: <DashboardSettings />,
+          },
+        ],
       },
     ],
   },

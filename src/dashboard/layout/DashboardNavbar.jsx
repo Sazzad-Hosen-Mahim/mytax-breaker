@@ -1,12 +1,7 @@
+import React from "react";
 import { FaBars } from "react-icons/fa";
 
-interface DashboardNavbarProps {
-  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
-  setIsSidebarOpen,
-}) => {
+const DashboardNavbar = ({ setIsSidebarOpen }) => {
   return (
     <nav className="w-full h-16 bg-blue-900 flex items-center justify-between px-4 lg:px-8 shadow fixed lg:relative z-30">
       <div className="flex items-center">
