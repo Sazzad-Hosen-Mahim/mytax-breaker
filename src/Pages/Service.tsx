@@ -1,7 +1,7 @@
-import CommonWrapper from "../../CommonWrapper/CommonWrapper";
-import Card2 from "./components/Card2";
+import CommonWrapper from "../components/CommonWrapper/CommonWrapper";
+import Card2 from "../components/Home/section3/components/Card2";
 
-function Section3() {
+function Service() {
   return (
     <CommonWrapper>
       <div className="flex justify-center py-48 gap-6 sm:py-16 sm:px-2">
@@ -15,11 +15,15 @@ function Section3() {
           "
         >
           <Card2
+            bgColor={""}
             title={"Broad Range ofServices Available."}
             content={
-              "An extensive assortment of available services tailored to meet your diverse needs and preferences"
+              "An extensive assortment of availableservices tailored to meet your diverse needs and preferences"
             }
             buttonText={"View Full Catalog"}
+            logo={""}
+            isCentered={false}
+            finance={false}
           />
           <Card2
             bgColor="bg-[#EFEFEF]"
@@ -29,6 +33,8 @@ function Section3() {
             title={"Financial Services"}
             logo={"./service-1.png"}
             buttonText={"View More"}
+            isCentered={false}
+            finance={false}
           />
           <Card2
             bgColor="bg-[#EFEFEF]"
@@ -38,6 +44,8 @@ function Section3() {
             }
             logo={"./service-2.png"}
             buttonText={"View More"}
+            isCentered={false}
+            finance={false}
           />
           <Card2
             bgColor="bg-[#EFEFEF]"
@@ -47,6 +55,8 @@ function Section3() {
             }
             logo={"./service-3.png"}
             buttonText={"View More"}
+            isCentered={false}
+            finance={false}
           />
           <Card2
             bgColor="bg-[#EFEFEF]"
@@ -57,6 +67,7 @@ function Section3() {
             logo={"./service-4.png"}
             buttonText={"View More"}
             finance={true}
+            isCentered={false}
           />
           <Card2
             bgColor="bg-[#A7EB94]"
@@ -67,6 +78,7 @@ function Section3() {
             logo={"./service-5.png"}
             buttonText={"Get In Touch"}
             isCentered={true}
+            finance={false}
           />
         </div>
       </div>
@@ -74,4 +86,4 @@ function Section3() {
   );
 }
 
-export default Section3;
+export default Service;

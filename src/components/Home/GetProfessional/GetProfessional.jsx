@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CommonWrapper from "../../CommonWrapper/CommonWrapper";
 
 const GetProfessional = () => {
@@ -7,9 +8,6 @@ const GetProfessional = () => {
         <div className="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-12 items-center">
           {/* Left Side - Heading and Button */}
           <div className="flex flex-col items-start text-white">
-            <button className="w-[140px] h-[50px] bg-[#A7EB94] text-green-900 font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-light-green/50 hover:text-white">
-              Process
-            </button>
             <h1 className="font-raleway font-semibold text-2xl sm:text-4xl leading-[1.2] mt-4">
               Get Professional Instantly <br className="hidden sm:block" /> In
               Just A Few Steps
@@ -27,12 +25,11 @@ const GetProfessional = () => {
             </div>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
-              <button className="w-full sm:w-[170px] h-[50px] sm:h-[60px] bg-[#A7EB94] text-green-900 font-semibold px-4 py-2 rounded-lg">
-                Get Quotes
-              </button>
-              <button className="w-full sm:w-[252px] h-[50px] sm:h-[60px] text-white font-semibold px-4 py-2 rounded-[5px] border border-green-400">
-                Book An Appointment
-              </button>
+              <Link to={"/book-appointment"}>
+                <button className="w-full sm:w-[252px] h-[50px] sm:h-[60px] text-white font-semibold px-4 py-2 rounded-[5px] bg-primary-button cursor-pointer hover:bg-primary-button/70 ">
+                  Book An Appointment
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -55,7 +52,7 @@ const GetProfessional = () => {
                 {/* Timeline items */}
                 <div className="">
                   <div className="flex gap-6">
-                    <div className="z-10 flex h-12 w-12 mt-3 items-center justify-center rounded-full bg-white text-emerald-800 font-semibold">
+                    <div className="z-10 flex w-12 h-9 mt-3 ml-[2px] items-center justify-center rounded-full bg-white text-emerald-800 font-semibold">
                       01
                     </div>
                     <div className="">
@@ -70,7 +67,7 @@ const GetProfessional = () => {
                   </div>
 
                   <div className="flex gap-6">
-                    <div className="relative z-10 flex h-12 w-12 mt-5 items-center justify-center rounded-full bg-white text-emerald-800 font-semibold">
+                    <div className="relative z-10 flex w-12 h-10  mt-5 items-center justify-center rounded-full bg-white text-emerald-800 font-semibold">
                       02
                     </div>
                     <div className="pt-2">
@@ -85,7 +82,7 @@ const GetProfessional = () => {
                   </div>
 
                   <div className="flex gap-6">
-                    <div className="relative z-10 flex h-12 w-12 mt-5 items-center justify-center rounded-full bg-emerald-200 text-emerald-800 font-semibold">
+                    <div className="relative z-10 flex w-12 h-10 ml-[1px] mt-5 items-center justify-center rounded-full bg-emerald-200 text-emerald-800 font-semibold">
                       03
                     </div>
                     <div className="pt-2">

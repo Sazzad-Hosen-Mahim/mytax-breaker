@@ -3,6 +3,7 @@ import { IoIosPeople } from "react-icons/io";
 import { TbTargetArrow } from "react-icons/tb";
 import { FaTools } from "react-icons/fa";
 import aboutImg from "../../../assets/about-bg.png";
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
@@ -26,9 +27,12 @@ const AboutUs = () => {
 
       {/* Center Content */}
       <div className="col-span-1 md:col-span-2 text-center ">
-        <button className="flex mx-auto rounded-lg bg-[#F8F8F9] border-2 border-gray-200 px-4 py-2 text-lg md:text-xl font-medium text-[#0C121D] cursor-pointer hover:bg-primary-button hover:text-white">
+        <Link
+          to={"/about"}
+          className="flex mx-auto w-[130px]  rounded-lg bg-[#F8F8F9] border-2 border-gray-200 px-4 py-2 text-lg md:text-xl font-medium text-[#0C121D] cursor-pointer hover:bg-primary-button hover:text-white"
+        >
           About Us
-        </button>
+        </Link>
         <h2 className="text-3xl md:text-[52px] font-semibold my-4 text-[#0C121D]">
           Globally Recruitment and Consultation Solutions
         </h2>
@@ -37,12 +41,16 @@ const AboutUs = () => {
           knowledge, we revolutionize the way companies and candidates connect.
         </p>
         <div className="flex gap-4 justify-center mt-7">
-          <button className="bg-[#A7EB94] hover:bg-[#014E3F] hover:text-white px-7 py-3 md:px-10 md:py-4 font-bold text-primary-button-text rounded-md cursor-pointer ">
-            Book An Appointment
-          </button>
-          <button className="border-2 border-[#A7EB94] hover:bg-light-green px-8 py-3 md:px-12 md:py-4 font-bold text-primary-button-text rounded-md">
-            Contact Us
-          </button>
+          <Link to={"/book-appointment"}>
+            <button className="bg-[#A7EB94] hover:bg-[#014E3F] hover:text-white px-7 py-3 md:px-10 md:py-4 font-bold text-primary-button-text rounded-md cursor-pointer ">
+              Book An Appointment
+            </button>
+          </Link>
+          <Link to={"/contact"}>
+            <button className="border-2 border-[#A7EB94] hover:bg-light-green px-8 py-3 md:px-12 md:py-4 font-bold text-primary-button-text rounded-md">
+              Contact Us
+            </button>
+          </Link>
         </div>
       </div>
 

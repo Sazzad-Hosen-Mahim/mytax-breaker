@@ -54,7 +54,7 @@ const ArticalCards = ({
           {title}
         </h4>
 
-        <p className="text-sm md:text-[16px] leading-relaxed mt-2 md:mt-[21px]">
+        <p className="text-sm md:text-[16px] leading-relaxed mt-2 px-2 md:mt-[21px]">
           {description}
         </p>
       </div>

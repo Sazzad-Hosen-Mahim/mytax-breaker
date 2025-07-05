@@ -13,6 +13,7 @@ import DashboardHome from "../Pages/Admin/DashboardHome";
 import DashboardSettings from "../Pages/Admin/DashboardSettings";
 import ForgotPassword from "../Pages/ForgotPassword";
 import ResetPassword from "../Pages/ResetPassword";
+import Service from "../Pages/Service";
 
 const routes = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const routes = createBrowserRouter([
     element: <Layout />, // Wrap all routes in Layout
     children: [
       {
-        index: true, // Default child route (Home)
+        index: true,
         element: <Home />,
       },
       {
@@ -38,6 +39,10 @@ const routes = createBrowserRouter([
       {
         path: "team",
         element: <Team />,
+      },
+      {
+        path: "service",
+        element: <Service />,
       },
     ],
   },

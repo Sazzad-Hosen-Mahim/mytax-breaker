@@ -1,6 +1,7 @@
 import "@fontsource/raleway";
 import "@fontsource/karla"; // Import Karla font globally
 import { GoArrowRight } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 function Card2({
   bgColor,
@@ -13,7 +14,7 @@ function Card2({
 }) {
   return (
     <div
-      className={`w-[420px] h-[380px] flex justify-center items-center rounded-3xl ${bgColor}`}
+      className={`lg:w-[420px] h-[380px] flex justify-center items-center rounded-3xl ${bgColor}`}
     >
       <div className=" w-[321px] h-[281.15px] flex flex-col justify-between gap-2 p-2">
         {/* Logo */}
@@ -57,15 +58,19 @@ function Card2({
         >
           {buttonText === "View Full Catalog" ? (
             // Render the large green button
-            <button className="bg-[#A7EB94] text-primary-button-text w-[194px] h-[52px] -mt-2 rounded-lg cursor-pointer">
-              {buttonText}
-            </button>
+            <Link to={"/book-appointment"}>
+              <button className="bg-[#A7EB94] text-primary-button-text w-[194px] h-[52px] -mt-2 rounded-lg cursor-pointer">
+                {buttonText}
+              </button>
+            </Link>
           ) : (
             <>
               {/* Render the small button */}
-              <button className="w-[90px] h-[23.15px] text-left cursor-pointer">
-                {buttonText}
-              </button>
+              <Link to={"/book-appointment"}>
+                <button className="w-[90px] h-[23.15px] text-left cursor-pointer">
+                  {buttonText}
+                </button>
+              </Link>
 
               {/* Conditionally render the arrow if buttonText is NOT "Get In Touch" or "View Full Catalog" */}
               {buttonText !== "Get In Touch" &&
