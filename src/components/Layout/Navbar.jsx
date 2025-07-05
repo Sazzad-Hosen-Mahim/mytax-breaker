@@ -61,10 +61,10 @@ const Navbar = () => {
             About Us
           </Link>
           <Link
-            to="/services"
+            to="/service"
             onClick={() => handleLinkClick("services")}
             className={`hover:text-[#a7eb94] text-lg block lg:inline-block ${
-              activeLink === "services" ? "text-[#a7eb94]" : ""
+              activeLink === "service" ? "text-[#a7eb94]" : ""
             }`}
           >
             Services
