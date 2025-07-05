@@ -1,5 +1,6 @@
 import { useState, FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -46,6 +47,7 @@ const ResetPassword = () => {
       }
 
       setSuccess(true);
+      toast.success("Password reset successfully");
       setTimeout(() => navigate("/login"), 3000);
     } catch (err) {
       setError(
