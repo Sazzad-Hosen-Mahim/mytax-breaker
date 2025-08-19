@@ -3,13 +3,13 @@ import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 const Card = ({ image, name, designation }) => {
   return (
-    <div className="relative text-black overflow-hidden w-[380px] p-4 group">
+    <div className="relative text-black overflow-hidden w-[466px] p-4 group">
       {/* Image Container */}
-      <div className="relative w-full h-[456.72px] overflow-hidden">
+      <div className="relative w-full h-[466.72px] overflow-hidden rounded-xl">
         <img
           src={image}
           alt={name}
-          className="w-[386.66px] h-[456.66px] mx-auto object-cover transition-all duration-300 "
+          className="w-[466.66px] h-[466.66px] mx-auto object-cover transition-all duration-300 "
         />
 
         {/* Social Media Icons (Visible on Hover) */}

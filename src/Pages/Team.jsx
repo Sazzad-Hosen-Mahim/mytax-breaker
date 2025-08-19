@@ -1,5 +1,5 @@
 import Card from "../components/Team/Card";
-import img1 from "../assets/team/forman.jpg";
+import img1 from "../assets/team/forman-new.png";
 import woman2 from "../assets/team/woman2.png";
 import team2 from "../assets/team/team2.jpg";
 import team3 from "../assets/team/team3.jpg";
