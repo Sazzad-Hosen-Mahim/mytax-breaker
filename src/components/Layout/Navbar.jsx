@@ -94,7 +94,7 @@ const Navbar = () => {
               activeLink === "pricing" ? "text-[#a7eb94]" : ""
             }`}
           >
-            Pricing
+            Book Appointment
           </Link>
         </div>
 
