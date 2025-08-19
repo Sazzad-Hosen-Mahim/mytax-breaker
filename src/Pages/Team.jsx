@@ -1,6 +1,8 @@
 import Card from "../components/Team/Card";
 import img1 from "../assets/team/forman.jpg";
 import woman2 from "../assets/team/woman2.png";
+import team2 from "../assets/team/team2.jpg";
+import team3 from "../assets/team/team3.jpg";
 import woman3 from "../assets/team/woman3.png";
 import StatsCards from "../components/About/StatsCards";
 import { useState } from "react";
@@ -43,18 +45,18 @@ const Team = () => {
       <div className="bg-white flex flex-wrap justify-center gap-8 md:gap-16 p-6">
         <Card
           image={img1}
-          designation={"ID: 42220200163"}
-          name={"MD. Forman Ali"}
+          designation={"Financial Advisor"}
+          name={"MD Forman Ali"}
         />
         <Card
-          image={woman2}
-          designation={"Business Strategist"}
-          name={"Emily Thompson"}
+          image={team3}
+          designation={"Financial Consultant"}
+          name={"MD Shimul Hossain"}
         />
         <Card
-          image={woman3}
-          designation={"Marketing Specialist"}
-          name={"Sarah Rodriguez"}
+          image={team2}
+          designation={"Investment Strategist"}
+          name={"Md Rubel Mia"}
         />
       </div>
       {/* <div className="bg-white flex flex-wrap justify-center gap-8 md:gap-16 p-6">

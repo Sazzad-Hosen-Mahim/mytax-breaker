@@ -37,7 +37,7 @@ const DashboardSettings = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/auth/change-password",
+        "https://financy-backend-fevs.onrender.com/auth/change-password",
         {
           method: "POST",
           headers: {

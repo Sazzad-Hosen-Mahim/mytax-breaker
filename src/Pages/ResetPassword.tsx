@@ -27,7 +27,7 @@ const ResetPassword = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/auth/reset-password",
+        "https://financy-backend-fevs.onrender.com/auth/reset-password",
         {
           method: "POST",
           headers: {

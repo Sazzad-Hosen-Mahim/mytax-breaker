@@ -59,7 +59,7 @@ const DashboardHome = () => {
       const token = localStorage.getItem("access_token");
       try {
         const res = await fetch(
-          `http://localhost:3000/booking?page=${currentPage}&limit=${itemsPerPage}`,
+          `https://financy-backend-fevs.onrender.com/booking?page=${currentPage}&limit=${itemsPerPage}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -165,7 +165,7 @@ const DashboardHome = () => {
       try {
         const token = localStorage.getItem("access_token");
         const response = await fetch(
-          `http://localhost:3000/booking/${selectedId}`,
+          `https://financy-backend-fevs.onrender.com/booking/${selectedId}`,
           {
             method: "DELETE",
             headers: {
@@ -180,7 +180,7 @@ const DashboardHome = () => {
 
         // Refresh the current page after deletion
         const res = await fetch(
-          `http://localhost:3000/booking?page=${currentPage}&limit=${itemsPerPage}`,
+          `https://financy-backend-fevs.onrender.com/booking?page=${currentPage}&limit=${itemsPerPage}`,
           {
             headers: {
               "Content-Type": "application/json",
