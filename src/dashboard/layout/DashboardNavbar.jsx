@@ -28,7 +28,7 @@ const DashboardNavbar = ({ setIsSidebarOpen }) => {
   }, []);
 
   return (
-    <nav className="w-full h-16 bg-blue-900 flex items-center justify-between px-4 lg:px-8 shadow fixed lg:relative z-30">
+    <nav className="w-full h-16 bg-[#004c3f] flex items-center justify-between px-4 lg:px-8 shadow fixed lg:relative z-30">
       <div className="flex items-center">
         <button
           className="lg:hidden text-white mr-4"
