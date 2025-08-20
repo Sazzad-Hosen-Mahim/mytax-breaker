@@ -93,10 +93,17 @@ const AppointmentForm = () => {
           <InputField
             label="Your Email"
             name="email"
+            type="email"
             register={register}
             placeholder="Enter your email"
             errors={errors}
-            rules={{ required: "Email is required" }}
+            rules={{
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Simple regex for email
+                message: "Invalid email address",
+              },
+            }}
           />
 
           {/* Select Service & Phone Number */}

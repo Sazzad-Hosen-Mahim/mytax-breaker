@@ -15,7 +15,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/auth/forgot-password",
+        "https://financy-backend-fevs.onrender.com/auth/forgot-password",
         {
           method: "POST",
           headers: {
