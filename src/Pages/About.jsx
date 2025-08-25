@@ -23,9 +23,9 @@ const About = () => {
         <CompanyValues />
       </CommonWrapper>
       <Review />
-      <CommonWrapper>
+      {/* <CommonWrapper>
         <MeetOutTeam />
-      </CommonWrapper>
+      </CommonWrapper> */}
       <CommonWrapper>
         <GuidingValues />
       </CommonWrapper>
