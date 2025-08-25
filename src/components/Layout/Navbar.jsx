@@ -101,7 +101,7 @@ const Navbar = () => {
         {/* Right Section */}
         <div className="lg:flex items-center gap-4 hidden">
           {/* Search Icon or Search Bar */}
-          <div className="relative">
+          {/* <div className="relative">
             {searchOpen ? (
               <input
                 type="text"
@@ -117,7 +117,7 @@ const Navbar = () => {
                 <RiSearchLine className="text-xl" />
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Get Started Button */}
           {isLoggedIn ? (
